@@ -9,5 +9,10 @@
             "name": "Igor Chepurnoy",
             "email": "igorzfort@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "yii2mod\\gii\\": ""
+        }
+    }
 }
