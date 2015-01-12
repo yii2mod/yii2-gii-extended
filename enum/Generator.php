@@ -6,6 +6,7 @@ use Yii;
 use yii\gii\CodeFile;
 
 use yii\helpers\Inflector;
+use yii\helpers\VarDumper;
 
 /**
  * This generator will generate the enumerable class.
@@ -22,8 +23,6 @@ use yii\helpers\Inflector;
  */
 class Generator extends \yii\gii\Generator
 {
-
-    public $enumarablePath = '@app/models/enumerables';
 
     /**
      * @var string the Enumerable class
@@ -57,7 +56,7 @@ class Generator extends \yii\gii\Generator
     }
 
     /**
-     * @inheritdoc
+     * @return string name of the code generator
      */
     public function getName()
     {
@@ -65,7 +64,7 @@ class Generator extends \yii\gii\Generator
     }
 
     /**
-     * @inheritdoc
+     * @return string the detailed description of the generator.
      */
     public function getDescription()
     {
@@ -74,33 +73,48 @@ class Generator extends \yii\gii\Generator
     }
 
     /**
-     * @inheritdoc
+     * Returns the validation rules for attributes.
+     *
+     * Validation rules are used by [[validate()]] to check if attribute values are valid.
+     * Child classes may override this method to declare different validation rules.
+     * @return array validation rules
+     * @see scenarios()
      */
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['enumerableClass', 'constValues','description','ns'], 'filter', 'filter' => 'trim'],
+            [['enumerableClass', 'constValues', 'description', 'ns'], 'filter', 'filter' => 'trim'],
             [['enumerableClass', 'constValues'], 'required'],
             [['enumerableClass'], 'match', 'pattern' => '/^[a-z][a-z0-9\\-\\/]*$/', 'message' => 'Only a-z, 0-9, dashes (-) and slashes (/) are allowed.'],
         ]);
     }
 
     /**
-     * @inheritdoc
+     * Returns the attribute labels.
+     *
+     * Attribute labels are mainly used for display purpose. For example, given an attribute
+     * `firstName`, we can declare a label `First Name` which is more user-friendly and can
+     * be displayed to end users.
+     *
+     * @return array attribute labels (name => label)
      */
     public function attributeLabels()
     {
         return [
             'enumerableClass' => 'Enumerable Class',
-            'constValues'     => 'All const values',
-            'description'     => 'Class description',
-            'author'          => 'Author',
-            'ns'              => 'Enumerable Namespace',
+            'constValues' => 'All const values',
+            'description' => 'Class description',
+            'author' => 'Author',
+            'ns' => 'Enumerable Namespace',
         ];
     }
 
     /**
-     * @inheritdoc
+     * Returns a list of code template files that are required.
+     * Derived classes usually should override this method if they require the existence of
+     * certain template files.
+     * @return array list of code template files that are required. They should be file paths
+     * relative to [[templatePath]].
      */
     public function requiredTemplates()
     {
@@ -110,7 +124,10 @@ class Generator extends \yii\gii\Generator
     }
 
     /**
-     * @inheritdoc
+     * Returns the list of sticky attributes.
+     * A sticky attribute will remember its value and will initialize the attribute with this value
+     * when the generator is restarted.
+     * @return array list of sticky attributes
      */
     public function stickyAttributes()
     {
@@ -118,7 +135,10 @@ class Generator extends \yii\gii\Generator
     }
 
     /**
-     * @inheritdoc
+     * Returns the list of hint messages.
+     * The array keys are the attribute names, and the array values are the corresponding hint messages.
+     * Hint messages will be displayed to end users when they are filling the form for the generator.
+     * @return array the list of hint messages
      */
     public function hints()
     {
@@ -130,9 +150,9 @@ class Generator extends \yii\gii\Generator
                     <li><code>order</code> generates <code>Order.php</code></li>
                     <li><code>order-item</code> generates <code>OrderItem.php</code></li>
                 </ul>',
-            'author'       => 'The author  in generated Enum class.',
-            'description'  => 'Description in generated Enum class.',
-            'constValues'  => 'Provide one or multiple values to generate const(s) in the Enumerable. Separate multiple values with commas or spaces. For Example:
+            'author' => 'The author  in generated Enum class.',
+            'description' => 'Description in generated Enum class.',
+            'constValues' => 'Provide one or multiple values to generate const(s) in the Enumerable. Separate multiple values with commas or spaces. For Example:
             <code>free,paid</code> generates
             <p><code>const FREE = 0;</code></p>
             <p><code>const PAID = 1;</code></p>
@@ -143,7 +163,9 @@ class Generator extends \yii\gii\Generator
     }
 
     /**
-     * @inheritdoc
+     * Returns the message to be displayed when the newly generated code is saved successfully.
+     * Child classes may override this method to customize the message.
+     * @return string the message to be displayed when the newly generated code is saved successfully.
      */
     public function successMessage()
     {
@@ -151,7 +173,11 @@ class Generator extends \yii\gii\Generator
     }
 
     /**
-     * @inheritdoc
+     * Generates the code based on the current user input and the specified code template files.
+     * This is the main method that child classes should implement.
+     * Please refer to [[\yii\gii\generators\controller\Generator::generate()]] as an example
+     * on how to implement this method.
+     * @return CodeFile[] a list of code files to be created.
      */
     public function generate()
     {
@@ -179,7 +205,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getPathEnumerableClass()
     {
-        return Yii::getAlias($this->enumarablePath) . '/' .  $this->getEnumerableClass() . '.php';
+        return Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $this->getEnumerableClass() . '.php';
     }
 
     /**
@@ -188,7 +214,14 @@ class Generator extends \yii\gii\Generator
      */
     public function getConstIDs()
     {
-        $actions = array_unique(preg_split('/[\s,]+/', $this->constValues, -1, PREG_SPLIT_NO_EMPTY));
+        $constValues = array_map('trim', explode(',', $this->constValues));
+        $constValues = array_filter($constValues);
+
+        array_walk($constValues, function (&$value) {
+            $value = preg_replace('/[^\w]+/', "_", $value);
+        }, $constValues);
+
+        $actions = array_unique($constValues);
         sort($actions);
 
         return $actions;
@@ -200,7 +233,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getAuthor()
     {
-       return $this->author;
+        return $this->author;
     }
 
     /**
@@ -209,6 +242,6 @@ class Generator extends \yii\gii\Generator
      */
     public function getEnumerableDescription()
     {
-       return $this->description;
+        return $this->description;
     }
 }
