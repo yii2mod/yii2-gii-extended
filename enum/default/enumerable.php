@@ -1,13 +1,13 @@
 <?php
 
-
-
 /**
  * This is the template for generating a enumerable class file.
  *
  * @var yii\web\View $this
  * @var yii\gii\generators\controller\Generator $generator
  */
+
+use yii\helpers\Inflector;
 
 echo "<?php\n";
 ?>
@@ -31,7 +31,7 @@ class <?= $generator->getEnumerableClass() . " extends BaseEnum " . "\n" ?>
 
     public static $list = [
 <?php foreach ($generator->getConstIDs() as $key => $const): ?>
-       self::<?= strtoupper($const) ?> => '<?= $const ?>',
+       self::<?= strtoupper($const) ?> => '<?= Inflector::humanize($const); ?>',
 <?php endforeach; ?>
    ];
 }
