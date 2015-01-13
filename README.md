@@ -1,7 +1,7 @@
 Extended CRUD & Enumerable Generator
 ==================
 
-This generator generates enumerable classes and a controller and views that implement CRUD (Create, Read, Update, Delete) operations for the specified data model.
+This generator generates enumerable classes or controller and views that implement CRUD (Create, Read, Update, Delete) operations for the specified data model.
 
 Installation
 ------------
