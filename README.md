@@ -1,23 +1,7 @@
 Extended CRUD & Enumerable Generator
 ==================
 
-This generator generates a controller and views that implement CRUD (Create, Read, Update, Delete) operations for the specified data model.
-
-To use this extension, add to main config in gii section following code:
-
-```php
-    'gii' => [
-            ...
-            'generators' => [
-                'enumerable' => [
-                    'class' => 'yii2mod\gii\enum\Generator',
-                ],
-                'crud' => [
-                    'class' => 'yii2mod\gii\crud\Generator',
-                ],
-            ],
-        ],
-```
+This generator generates enumerable classes and a controller and views that implement CRUD (Create, Read, Update, Delete) operations for the specified data model.
 
 Installation
 ------------
@@ -37,3 +21,19 @@ or add
 ```
 
 to the require section of your composer.json.
+
+To use this extension, add to main config in gii section following code:
+
+```php
+    'gii' => [
+            ...
+            'generators' => [
+                'enumerable' => [
+                    'class' => 'yii2mod\gii\enum\Generator',
+                ],
+                'crud' => [
+                    'class' => 'yii2mod\gii\crud\Generator',
+                ],
+            ],
+        ],
+```
