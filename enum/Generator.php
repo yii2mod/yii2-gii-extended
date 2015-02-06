@@ -124,17 +124,6 @@ class Generator extends \yii\gii\Generator
     }
 
     /**
-     * Returns the list of sticky attributes.
-     * A sticky attribute will remember its value and will initialize the attribute with this value
-     * when the generator is restarted.
-     * @return array list of sticky attributes
-     */
-    public function stickyAttributes()
-    {
-        return ['constValues', 'enumerableClass'];
-    }
-
-    /**
      * Returns the list of hint messages.
      * The array keys are the attribute names, and the array values are the corresponding hint messages.
      * Hint messages will be displayed to end users when they are filling the form for the generator.
