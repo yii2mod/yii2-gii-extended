@@ -3,7 +3,7 @@
     "description": "This generator generates a controller and views that implement CRUD (Create, Read, Update, Delete) operations for the specified data model.",
     "type": "yii2-extension",
     "keywords": ["yii2", "extension"],
-    "license": "Apache-2.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Igor Chepurnoy",
