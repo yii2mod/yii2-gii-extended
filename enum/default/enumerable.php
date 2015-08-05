@@ -26,7 +26,7 @@ use yii2mod\enum\helpers\BaseEnum;
 class <?= $generator->getEnumerableClass() . " extends BaseEnum " . "\n" ?>
 {
 <?php foreach ($generator->getConstIDs() as $key => $const): ?>
-    const <?= strtoupper($const) ?> = <?= $key ?>;
+    const <?= strtoupper($const) ?> = <?= $key+$generator->start ?>;
 <?php endforeach; ?>
 
     public static $list = [
@@ -35,4 +35,3 @@ class <?= $generator->getEnumerableClass() . " extends BaseEnum " . "\n" ?>
 <?php endforeach; ?>
    ];
 }
-
