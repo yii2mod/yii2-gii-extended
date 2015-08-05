@@ -49,6 +49,15 @@ class Generator extends \yii\gii\Generator
      */
     public $ns = 'app\models\enumerables';
 
+    /**
+     * @var integer. Start numbers from.
+     */
+    public $start = 0;
+
+    /**
+     * @var boolean. Sort values or no.
+     */
+    public $sort = 0;
 
     public function init()
     {
@@ -84,7 +93,9 @@ class Generator extends \yii\gii\Generator
     {
         return array_merge(parent::rules(), [
             [['enumerableClass', 'constValues', 'description', 'ns'], 'filter', 'filter' => 'trim'],
-            [['enumerableClass', 'constValues'], 'required'],
+            [['enumerableClass', 'constValues', 'start'], 'required'],
+            [['start'], 'integer'],
+            [['sort'], 'boolean'],
             [['enumerableClass'], 'match', 'pattern' => '/^[a-z][a-z0-9\\-\\/]*$/', 'message' => 'Only a-z, 0-9, dashes (-) and slashes (/) are allowed.'],
         ]);
     }
@@ -211,8 +222,10 @@ class Generator extends \yii\gii\Generator
         }, $constValues);
 
         $actions = array_unique($constValues);
-        sort($actions);
-
+        if ($this->sort) {
+            sort($actions);
+        }
+        
         return $actions;
     }
 
