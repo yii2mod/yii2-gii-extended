@@ -6,7 +6,6 @@ use Yii;
 use yii\gii\CodeFile;
 
 use yii\helpers\Inflector;
-use yii\helpers\VarDumper;
 
 /**
  * This generator will generate the enumerable class.
@@ -37,7 +36,7 @@ class Generator extends \yii\gii\Generator
     /**
      * @var string description in generated Enumerable class
      */
-    public $description = 'This is the CEnumerable class for';
+    public $description = 'This is the Enumerable class for';
 
     /**
      * @var string constants values. Separate multiple values with commas or spaces.
@@ -92,7 +91,7 @@ class Generator extends \yii\gii\Generator
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['enumerableClass', 'constValues', 'description', 'ns'], 'filter', 'filter' => 'trim'],
+            [['enumerableClass', 'constValues', 'description', 'ns', 'author'], 'filter', 'filter' => 'trim'],
             [['enumerableClass', 'constValues', 'start'], 'required'],
             [['start'], 'integer'],
             [['sort'], 'boolean'],
@@ -156,8 +155,6 @@ class Generator extends \yii\gii\Generator
             <code>free,paid</code> generates
             <p><code>const FREE = 0;</code></p>
             <p><code>const PAID = 1;</code></p>
-
-
             '
         ];
     }
