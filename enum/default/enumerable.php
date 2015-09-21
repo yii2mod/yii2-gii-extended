@@ -25,6 +25,9 @@ use yii2mod\enum\helpers\BaseEnum;
 
 class <?= $generator->getEnumerableClass() . " extends BaseEnum " . "\n" ?>
 {
+<?php if ($generator->enableI18N && !empty($generator->messageCategory)): ?>
+    public static $messageCategory = '<?php echo $generator->messageCategory; ?>';
+<?php endif; ?>
 <?php foreach ($generator->getConstIDs() as $key => $const): ?>
     const <?= strtoupper($const) ?> = <?= $key+$generator->start ?>;
 <?php endforeach; ?>
