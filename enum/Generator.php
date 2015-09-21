@@ -4,7 +4,6 @@ namespace yii2mod\gii\enum;
 
 use Yii;
 use yii\gii\CodeFile;
-
 use yii\helpers\Inflector;
 
 /**
@@ -95,6 +94,8 @@ class Generator extends \yii\gii\Generator
             [['enumerableClass', 'constValues', 'start'], 'required'],
             [['start'], 'integer'],
             [['sort'], 'boolean'],
+            [['enableI18N'], 'boolean'],
+            [['messageCategory'], 'validateMessageCategory', 'skipOnEmpty' => false],
             [['enumerableClass'], 'match', 'pattern' => '/^[a-z][a-z0-9\\-\\/]*$/', 'message' => 'Only a-z, 0-9, dashes (-) and slashes (/) are allowed.'],
         ]);
     }
