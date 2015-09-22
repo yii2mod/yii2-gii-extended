@@ -10,32 +10,19 @@ use yii\helpers\Inflector;
  * This generator will generate the enumerable class.
  *
  * @property array $constValues An array of constant values entered by the user.
- * @property string $enumerableClass The enumerable class name without the namespace part. This property is
- * read-only.
- * @property string $author The author name in generated Enumerable class.
- * @property string $description The description text in generated Enumerable class.
- * read-only.
+ * @property string $enumerableClass The enumerable class name without the namespace part. This property is read-only.
+ *
  * @author Igor Chepurnoy
  *
  * @since 1.0
  */
 class Generator extends \yii\gii\Generator
 {
-
+    
     /**
      * @var string the Enumerable class
      */
     public $enumerableClass;
-
-    /**
-     * @var string author in generated Enumerable class
-     */
-    public $author = 'Igor Chepurnoy';
-
-    /**
-     * @var string description in generated Enumerable class
-     */
-    public $description = 'This is the Enumerable class for';
 
     /**
      * @var string constants values. Separate multiple values with commas or spaces.
@@ -57,6 +44,9 @@ class Generator extends \yii\gii\Generator
      */
     public $sort = 0;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();
@@ -76,7 +66,6 @@ class Generator extends \yii\gii\Generator
     public function getDescription()
     {
         return 'This generator helps you to quickly generate a new Enumerable class';
-
     }
 
     /**
@@ -90,7 +79,7 @@ class Generator extends \yii\gii\Generator
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['enumerableClass', 'constValues', 'description', 'ns', 'author'], 'filter', 'filter' => 'trim'],
+            [['enumerableClass', 'constValues', 'ns'], 'filter', 'filter' => 'trim'],
             [['enumerableClass', 'constValues', 'start'], 'required'],
             [['start'], 'integer'],
             [['sort'], 'boolean'],
@@ -114,8 +103,6 @@ class Generator extends \yii\gii\Generator
         return [
             'enumerableClass' => 'Enumerable Class',
             'constValues' => 'All const values',
-            'description' => 'Class description',
-            'author' => 'Author',
             'ns' => 'Enumerable Namespace',
         ];
     }
@@ -143,15 +130,12 @@ class Generator extends \yii\gii\Generator
     public function hints()
     {
         return [
-
             'ns' => 'This is the namespace that the new enumerable class will use.',
             'enumerableClass' => 'Enumerable ID should be in lower case and may contain module ID(s) separated by slashes. For example:
                 <ul>
                     <li><code>order</code> generates <code>Order.php</code></li>
                     <li><code>order-item</code> generates <code>OrderItem.php</code></li>
                 </ul>',
-            'author' => 'The author  in generated Enum class.',
-            'description' => 'Description in generated Enum class.',
             'constValues' => 'Provide one or multiple values to generate const(s) in the Enumerable. Separate multiple values with commas or spaces. For Example:
             <code>free,paid</code> generates
             <p><code>const FREE = 0;</code></p>
@@ -223,25 +207,8 @@ class Generator extends \yii\gii\Generator
         if ($this->sort) {
             sort($actions);
         }
-        
+
         return $actions;
     }
 
-    /**
-     * Get author for Enumerable class
-     * @return string
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * Get description for Enumerable class
-     * @return string
-     */
-    public function getEnumerableDescription()
-    {
-        return $this->description;
-    }
 }
