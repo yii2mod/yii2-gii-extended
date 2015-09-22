@@ -6,8 +6,6 @@
  */
 echo $form->field($generator, 'enumerableClass');
 echo $form->field($generator, 'ns');
-echo $form->field($generator, 'author');
-echo $form->field($generator, 'description')->textarea(['style' => 'resize:vertical']);
 echo $form->field($generator, 'constValues')->textarea(['style' => 'resize:vertical']);
 echo $form->field($generator, 'start')->label('Start numbers from');
 echo $form->field($generator, 'sort')->checkbox(['label' => 'Sort values']);
