@@ -19,10 +19,9 @@ namespace <?= $generator->ns ?>;
 use yii2mod\enum\helpers\BaseEnum;
 
 /**
- *  @author <?= $generator->getAuthor() . "\n"; ?>
- *  <?= $generator->getEnumerableDescription() . "\n"; ?>
+ * Class <?= "{$generator->getEnumerableClass()}\n"; ?>
+ * @package <?= "$generator->ns\n" ?>
  */
-
 class <?= $generator->getEnumerableClass() . " extends BaseEnum " . "\n" ?>
 {
 <?php if ($generator->enableI18N && !empty($generator->messageCategory)): ?>
