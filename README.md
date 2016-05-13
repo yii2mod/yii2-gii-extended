@@ -3,6 +3,8 @@ Extended CRUD & Enumerable Generator
 
 This generator generates enumerable classes or controller and views that implement CRUD (Create, Read, Update, Delete) operations for the specified data model.
 
+[![Latest Stable Version](https://poser.pugx.org/yii2mod/yii2-gii-extended/v/stable)](https://packagist.org/packages/yii2mod/yii2-gii-extended) [![Total Downloads](https://poser.pugx.org/yii2mod/yii2-gii-extended/downloads)](https://packagist.org/packages/yii2mod/yii2-gii-extended) [![License](https://poser.pugx.org/yii2mod/yii2-gii-extended/license)](https://packagist.org/packages/yii2mod/yii2-gii-extended)
+
 Installation
 ------------
 
